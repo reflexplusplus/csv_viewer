@@ -1,0 +1,12 @@
+<resources output="code/resources.cpp">
+
+	<Config public="true">
+		<bool id="ide.texteditor.tab_spaces" value="0"/>
+		<bool id="view.allow_init_animations" value="true"/>
+	</Config>
+
+	<csv_viewer>
+		<folder path="resources" public="true" compress="auto"/>
+	</csv_viewer>
+
+</resources>

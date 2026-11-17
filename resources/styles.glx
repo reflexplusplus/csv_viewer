@@ -1,0 +1,162 @@
+include: "common.glx";
+
+@Font GridText:
+{
+	path: ":res:csv_viewer/fonts/OpenSans/static/OpenSans/OpenSans-Regular.ttf";
+	size: 13;
+	render: smooth;
+	antialias: true;
+	alt:
+	[
+		{
+			path: ":res:csv_viewer/fonts/MPLUS1p-Regular.ttf";
+			antialias: true;
+		}
+	];
+};
+
+size: 768,512;
+bg_colour: 255;
+
+menu:
+{
+	size: 148,0;
+	align: fit;
+	bg_colour: 255;
+	fg: Border(width: 1; colour: 207,216,227);
+
+	item:
+	{
+		size: 148,32;
+		bg: Text(font: GridText; justify: left; indent: 12,0; value: &value; colour: 30,41,59);
+
+		@State hover:
+		{
+			bg_colour: 224,231,239;
+		};
+	};
+};
+
+Toolbar:
+{
+	size: 36;
+	bg_colour: 246,248,250;
+
+	Open:
+	{
+		size: 72,36;
+		max: 72,36;
+		bg: Text(font: GridText; justify: center; value: &value; colour: 30,41,59);
+
+		@State hover:
+		{
+			bg_colour: 224,231,239;
+		};
+	};
+
+	Status:
+	{
+		size: 0,36;
+		bg: Text(font: GridText; justify: left; indent: 12,0; overflow: ellipsis; value: &value; colour: 71,85,105);
+	};
+
+	Reload:
+	{
+		size: 88,36;
+		max: 88,36;
+		bg: Text(font: GridText; justify: center; value: &value; colour: 30,41,59);
+
+		@State hover:
+		{
+			bg_colour: 224,231,239;
+		};
+
+		@State inactive:
+		{
+			bg: Text(font: GridText; justify: center; value: &value; colour: 148,163,184);
+		};
+	};
+
+	Save:
+	{
+		inherit: Reload;
+		size: 72,36;
+		max: 72,36;
+	};
+
+	Auto:
+	{
+		inherit: Open;
+
+		@State selected:
+		{
+			bg:
+			Fill(indent: 4; corner: 4; colour: 205,224,247),
+			Text(font: GridText; justify: center; value: &value; colour: 24,62,105);
+		};
+	};
+};
+
+Cell:
+{
+	size: 0,30;
+	clip: true;
+	bg: Line(position: right; colour: 226,232,240), Line(position: bottom; colour: 226,232,240);
+	fg: Text(font: GridText; justify: left; indent: 8,0; overflow: ellipsis; value: &value; colour: 30,41,59);
+};
+
+Header:
+{
+	size: 30;
+	bg_colour: 231,237,245;
+	body: { clip: true; };
+
+	content:
+	{
+		size: 0,30;
+
+		Cell:
+		{
+			transition: 0.25;
+			
+			inherit: Cell;
+			size: 48,30;
+			bg:
+			Line(position: right; colour: 207,216,227),
+			Line(position: bottom; colour: 226,232,240);
+
+//			@State hover:
+//			{
+//				bg:
+//				Line(position: right; colour: 207,216,227),
+//				Line(position: bottom; colour: 226,232,240),
+//				Align(indent: 5,4; position: far,fit; size: 4; content: Border(width: 1,0,1,0; colour: 0,32));
+//			};
+		};
+	};
+};
+
+Body:
+{
+	clip: true;
+	body: { clip: true; };
+
+	scrollbar:
+	{
+		size: 20;
+		bg_colour: 246,248,250;
+		bg: Bar(range: &range; region: &region; content: Fill(indent: 6; corner: 4; colour: 148,163,184,96));
+	};
+
+	x: { inherit: scrollbar; };
+	y: { inherit: scrollbar; };
+
+	content:
+	{
+		item:
+		{
+			size: 0,30;
+			@Alias Cell;
+		};
+	};
+};
